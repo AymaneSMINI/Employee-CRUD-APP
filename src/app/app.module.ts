@@ -17,12 +17,12 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
-
+import Swal from 'sweetalert2';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EditEmplComponent
+    EditEmplComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +40,7 @@ import {MatTableModule} from '@angular/material/table';
     MatSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatTableModule
-    
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

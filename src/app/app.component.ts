@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditEmplComponent } from './edit-empl/edit-empl.component';
 import { EmployeeService } from './services/employee.service';
-import { NotExpr } from '@angular/compiler';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ export class AppComponent{
   "Action"];
   dataSource : Array <any> =[];
 
-  constructor (private _dialog : MatDialog, private _empService : EmployeeService){
+  constructor (private _dialog : MatDialog, private _empService : EmployeeService) {
     //The same rule of the ng
     /*this._empService.GetEmployee().subscribe(
       (Response) => (
@@ -32,6 +32,7 @@ export class AppComponent{
       )
     )*/
   };
+ 
   ngOnInit():void {
     this.GetEmployee();
   }
@@ -48,19 +49,47 @@ export class AppComponent{
   }
 
   GetEmployee(){
-    this._empService.GetEmployee().subscribe((data: any[]) => {
-      console.log(data);
-      this.dataSource = data;
+    this._empService.GetEmployee().subscribe((database: any[]) => {
+      this.dataSource = database;
     });
   }
 
   DeleteEmp(id : number){
-    this._empService.DeleteEmployee(id).subscribe({
-      next :(res) => {
-        this.GetEmployee();
-      },
-      error: console.log,
-      
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._empService.DeleteEmployee(id).subscribe({
+          next :(res) => {
+            this.GetEmployee();
+          }
+          ,
+          error: console.log,
+          
+        });
+        Swal.fire(
+          'Deleted!',
+          'Your employee has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
+  UpdateEmp(data: any){
+    const dialogRef = this._dialog.open(EditEmplComponent,{data});
+    dialogRef.afterClosed().subscribe({
+      next : (val) => {
+        if(val){
+          this.GetEmployee();
+        }
+      }
     });
   }
   

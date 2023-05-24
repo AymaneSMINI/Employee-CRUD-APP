@@ -1,0 +1,97 @@
+<div>
+  <mat-toolbar color="primary">
+    <span>Crud Application</span>
+    <span class="example-spacer"></span>
+    <button mat-raised-button (click)="openEditEmpForm()">
+      Add Employer
+    </button>
+  </mat-toolbar>
+</div>
+
+
+
+
+<section class="example-container mat-elevation-z8" tabindex="0">
+
+    <table mat-table [dataSource]="dataSource" >
+    
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+    
+      <!-- firstName Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef> firstName </th>
+        <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+      </ng-container>
+    
+      <!-- LastName Column -->
+      <ng-container matColumnDef="LastName" required>
+        <th mat-header-cell *matHeaderCellDef> LastName </th>
+        <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+      </ng-container>
+    
+      <!-- Email Column -->
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+      </ng-container>
+    
+      <!-- Birth Column -->
+      <ng-container matColumnDef="Birth">
+        <th mat-header-cell *matHeaderCellDef> Birth </th>
+        <td mat-cell *matCellDef="let element"> {{element.Birth | date}} </td>
+      </ng-container>
+    
+      <!-- Gender Column -->
+      <ng-container matColumnDef="Gender">
+        <th mat-header-cell *matHeaderCellDef> Gender </th>
+        <td mat-cell *matCellDef="let element"> {{element.Gender}} </td>
+      </ng-container>
+    
+      <!-- Education Column -->
+      <ng-container matColumnDef="Education">
+        <th mat-header-cell *matHeaderCellDef> Education </th>
+        <td mat-cell *matCellDef="let element"> {{element.Education}} </td>
+      </ng-container>
+    
+    <!-- Company Column -->
+    <ng-container matColumnDef="Company">
+      <th mat-header-cell *matHeaderCellDef> Company </th>
+      <td mat-cell *matCellDef="let element"> {{element.Company}} </td>
+    </ng-container>
+    
+    <!-- Education Column -->
+    <ng-container matColumnDef="Experience">
+      <th mat-header-cell *matHeaderCellDef> Experience </th>
+      <td mat-cell *matCellDef="let element"> {{element.Experience}} </td>
+    </ng-container>
+    
+    <!-- Package Column -->
+    <ng-container matColumnDef="Package">
+      <th mat-header-cell *matHeaderCellDef> Package </th>
+      <td mat-cell *matCellDef="let element"> {{element.Package | currency}}</td>
+    </ng-container>
+    
+    <!-- Action Column -->
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">  
+        <button mat-icon-button color="primary" (click)="UpdateEmp(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="DeleteEmp(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</section>

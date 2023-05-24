@@ -20,4 +20,7 @@ export class EmployeeService {
    DeleteEmployee(id : number): Observable<any>{
    return this._http.delete(`http://localhost:3000/Employee/${id}`)
   }
+   UpdateEmployee(id :number,data: any): Observable<any>{
+    return this._http.put('http://localhost:3000/Employee/'+id,data)
+   }
 }
